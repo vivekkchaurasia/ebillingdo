@@ -36,13 +36,13 @@ Route::post('/login', function (Request $request) {
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::middleware(['role:admin'])->group(function () {
-        Route::apiResource('item-categories', ItemCategoryController::class);
-        Route::apiResource('items', ItemController::class);
-        Route::apiResource('stock-purchases', StockPurchaseController::class);
+        Route::apiResource('api-item-categories', ItemCategoryController::class);
+        Route::apiResource('api-items', ItemController::class);
+        Route::apiResource('api-stock-purchases', StockPurchaseController::class);
     });
 
     Route::middleware(['permission:view-stock-purchases'])->group(function () {
-        Route::get('stock-purchases', [StockPurchaseController::class, 'index']);
-        Route::get('stock-purchases/{stockPurchase}', [StockPurchaseController::class, 'show']);
+        Route::get('api-stock-purchases', [StockPurchaseController::class, 'index']);
+        Route::get('api-stock-purchases/{stockPurchase}', [StockPurchaseController::class, 'show']);
     });
 });

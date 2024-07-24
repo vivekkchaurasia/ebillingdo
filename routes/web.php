@@ -23,8 +23,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
-
 Route::get('/home', function () {
     return view('home');
 })->middleware('auth')->name('home');
@@ -42,8 +40,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('stock-purchases', [StockPurchaseController::class, 'index']);
         Route::get('stock-purchases/{stockPurchase}', [StockPurchaseController::class, 'show']);
     });
+
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 });
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

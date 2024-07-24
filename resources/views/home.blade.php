@@ -1,23 +1,12 @@
-@extends('layouts.app')
+@extends('layouts.master')
+
+@section('title', 'Home')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="jumbotron">
+    <h1 class="display-4">Welcome to Your Company</h1>
+    <p class="lead">This is a simple landing page to welcome users to your application.</p>
+    <hr class="my-4">
+    <p>Use the sidebar to navigate through the resources available in the application.</p>
 </div>
 @endsection
