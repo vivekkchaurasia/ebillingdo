@@ -17,10 +17,14 @@ class ItemController extends Controller
         return view('items.index', compact('items', 'categories'));
     }
 
+    public function create()
+    {
+        $categories = ItemCategory::all();
+        return view('items.create', compact('categories'));
+    }
+
     public function store(Request $request)
     {
-        $user = Auth::id();
-
         $request->validate([
             'item_category_id' => 'required|exists:item_categories,id',
             'name' => 'required|string|max:255',
@@ -41,25 +45,22 @@ class ItemController extends Controller
 
         $data['current_stock'] = $data['opening_stock'];
         $data['last_purchase_date'] = date('Y-m-d');
-        $data['created_by'] = $user;
-        $data['updated_by'] = $user;
+        $data['created_by'] = Auth::id();
+        $data['updated_by'] = Auth::id();
 
         $item = Item::create($data);
 
-        // Correctly load the 'itemCategory' relationship instead of 'item'
-        return response()->json($item->load('itemCategory'));
+        return redirect()->route('items.index');
     }
 
-    public function show(Item $item)
+    public function edit(Item $item)
     {
-        // Correctly load the 'itemCategory' relationship instead of 'item'
-        return response()->json($item->load('itemCategory'));
+        $categories = ItemCategory::all();
+        return view('items.edit', compact('item', 'categories'));
     }
 
     public function update(Request $request, Item $item)
     {
-        $user = Auth::id();
-        
         $request->validate([
             'item_category_id' => 'required|exists:item_categories,id',
             'name' => 'required|string|max:255',
@@ -74,18 +75,17 @@ class ItemController extends Controller
         $data = $request->all();
 
         if ($request->hasFile('image')) {
-            // Delete old image if exists
             if ($item->image) {
                 Storage::disk('public')->delete($item->image);
             }
             $path = $request->file('image')->store('images', 'public');
             $data['image'] = $path;
         }
+
         $data['updated_by'] = Auth::id();
         $item->update($data);
 
-        // Correctly load the 'itemCategory' relationship instead of 'item'
-        return response()->json($item->load('item.itemCategory'));
+        return redirect()->route('items.index');
     }
 
     public function destroy(Item $item)
@@ -94,7 +94,7 @@ class ItemController extends Controller
             Storage::disk('public')->delete($item->image);
         }
         $item->delete();
-        return response()->json(null, 204);
+        return redirect()->route('items.index');
     }
 
     public function stockReport()
