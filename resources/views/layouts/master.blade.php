@@ -14,6 +14,45 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
+    <!-- Custom Styles -->
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+        }
+        .navbar-brand img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        #sidebarMenu {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+        }
+        .sidebar .nav-link {
+            color: #333;
+        }
+        .sidebar .nav-link.active {
+            background-color: #007bff;
+            color: white;
+        }
+        main {
+            background-color: #f1f1f1;
+            min-height: 100vh;
+        }
+        footer {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+        .sidebar .nav-link.active {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
@@ -22,6 +61,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
+                    <img src="{{ asset('assets/images/logo.png') }}" alt="Logo">
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -37,13 +77,13 @@
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
-                                <li class="nav-item">
+                                <li class="nav-item mb-2 mt-2">
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
-                                <li class="nav-item">
+                                <li class="nav-item mb-2 mt-2">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
@@ -73,58 +113,65 @@
 
         <div class="container-fluid">
             <div class="row">
-                <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-                    <div class="position-sticky">
-                        <ul class="nav flex-column mt-3">
-                            <li class="nav-item mb-2 mt-2">
-                                <a class="nav-link active" aria-current="page" href="{{ route('stock.report') }}">
-                                    <span data-feather="home"></span>
-                                    Stock Report
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('invoices.index') }}">
-                                    <span data-feather="file"></span>
-                                    Orders
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('stock-purchases.index') }}">
-                                    <span data-feather="shopping-cart"></span>
-                                    Stock Purchases
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('items.index') }}">
-                                    <span data-feather="users"></span>
-                                    Items
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('item-categories.index') }}">
-                                    <span data-feather="bar-chart-2"></span>
-                                    Item Categories
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <span data-feather="layers"></span>
-                                    Integrations
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
+                <div class="position-sticky">
+                    <ul class="nav flex-column mt-3 mb-2">
+                        <li class="nav-item mb-2 mt-2">
+                            <a class="nav-link {{ request()->routeIs('invoices.index') ? 'active' : '' }}" href="{{ route('invoices.index') }}">
+                                <span data-feather="file"></span>
+                                Invoice
+                            </a>
+                        </li>
+                        <li class="nav-item mb-2 mt-2">
+                            <a class="nav-link {{ request()->routeIs('stock.report') ? 'active' : '' }}" aria-current="page" href="{{ route('stock.report') }}">
+                                <span data-feather="home"></span>
+                                Stock Report
+                            </a>
+                        </li>
+                        <li class="nav-item mb-2 mt-2">
+                            <a class="nav-link {{ request()->routeIs('stock-purchases.index') ? 'active' : '' }}" href="{{ route('stock-purchases.index') }}">
+                                <span data-feather="shopping-cart"></span>
+                                Stock Purchases
+                            </a>
+                        </li>
+                        <li class="nav-item mb-2 mt-2">
+                            <a class="nav-link {{ request()->routeIs('items.index') ? 'active' : '' }}" href="{{ route('items.index') }}">
+                                <span data-feather="users"></span>
+                                Item
+                            </a>
+                        </li>
+                        <li class="nav-item mb-2 mt-2">
+                            <a class="nav-link {{ request()->routeIs('item-categories.index') ? 'active' : '' }}" href="{{ route('item-categories.index') }}">
+                                <span data-feather="bar-chart-2"></span>
+                                Item Categories
+                            </a>
+                        </li>
+                        <li class="nav-item mb-2 mt-2">
+                            <a class="nav-link" href="#">
+                                <span data-feather="layers"></span>
+                                Integrations
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
 
                 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
                     @yield('content')
                 </main>
             </div>
         </div>
+
+        <footer>
+            &copy; {{ date('Y') }} Powered by <a href="https://vhforge.com" class="link-warning" target="_blank">VHForge</a> All Rights Reserved.
+        </footer>
     </div>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+    
     <script src="https://unpkg.com/feather-icons"></script>
     <script>
         feather.replace()

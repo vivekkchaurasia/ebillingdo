@@ -14,11 +14,15 @@ class StockPurchaseController extends Controller
     {
         $purchases = StockPurchase::with(['category', 'item'])->get();
         $categories = ItemCategory::all();
-        $items = Item::all();
-        return view('stock_purchases.index', compact('purchases', 'categories', 'items'));
+        return view('stock_purchases.index', compact('purchases', 'categories'));
     }
 
-    
+    public function create()
+    {
+        $categories = ItemCategory::all();
+        $items = Item::all();
+        return view('stock_purchases.create', compact('categories', 'items'));
+    }
 
     public function store(Request $request)
     {
@@ -32,27 +36,29 @@ class StockPurchaseController extends Controller
         ]);
 
         $stockPurchase = new StockPurchase();
-        $stockPurchase->item_category_id = $validated['item_category_id'];
-        $stockPurchase->item_id = $validated['item_id'];
-        $stockPurchase->date = $validated['date'];
-        $stockPurchase->batch_no = $validated['batch_no'];
-        $stockPurchase->wholesale_price = $validated['wholesale_price'];
-        $stockPurchase->retail_price = $validated['retail_price'];
+        $stockPurchase->fill($validated);
         $stockPurchase->created_by = Auth::id();
         $stockPurchase->updated_by = Auth::id();
         $stockPurchase->save();
 
         $item = Item::find($validated['item_id']);
-        $item->current_stock += $stockPurchase->quantity; // Ensure quantity field is handled
+        $item->current_stock += 1; // Adjust quantity logic if needed
         $item->last_purchase_date = now();
         $item->save();
 
-        return response()->json(['message' => 'Stock purchase added successfully']);
+        return redirect()->route('stock-purchases.index')->with('success', 'Stock purchase added successfully');
     }
 
     public function show(StockPurchase $stockPurchase)
     {
-        return response()->json($stockPurchase);
+        return view('stock_purchases.show', compact('stockPurchase'));
+    }
+
+    public function edit(StockPurchase $stockPurchase)
+    {
+        $categories = ItemCategory::all();
+        $items = Item::all();
+        return view('stock_purchases.edit', compact('stockPurchase', 'categories', 'items'));
     }
 
     public function update(Request $request, StockPurchase $stockPurchase)
@@ -64,7 +70,7 @@ class StockPurchaseController extends Controller
             'batch_no' => 'nullable|string|max:255',
             'wholesale_price' => 'required|numeric',
             'retail_price' => 'required|numeric',
-            'quantity' => 'required|integer|min:1', // Add quantity validation
+            'quantity' => 'required|integer|min:1', // Ensure quantity is handled
         ]);
 
         // Revert stock adjustments for the existing stock purchase
@@ -81,9 +87,8 @@ class StockPurchaseController extends Controller
         $newItem->last_purchase_date = now();
         $newItem->save();
 
-        return response()->json(['message' => 'Stock purchase updated successfully', 'stockPurchase' => $stockPurchase]);
+        return redirect()->route('stock-purchases.index')->with('success', 'Stock purchase updated successfully');
     }
-
 
     public function destroy(StockPurchase $stockPurchase)
     {

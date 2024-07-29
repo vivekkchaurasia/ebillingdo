@@ -39,7 +39,7 @@
                         <input type="hidden" id="editCategoryId">
                         <input type="text" class="form-control" id="editCategoryName" name="name" placeholder="Item Category Name" required>
                     </div>
-                    <button type="submit" class="btn btn-primary" data-dismiss="modal">Update Category</button>
+                    <button type="submit" class="btn btn-primary">Update Category</button>
                 </form>
             </div>
         </div>

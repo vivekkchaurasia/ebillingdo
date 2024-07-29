@@ -6,6 +6,7 @@ use App\Models\Item;
 use App\Models\ItemCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class ItemController extends Controller
@@ -134,6 +135,13 @@ class ItemController extends Controller
 
         $items = $query->get();
 
+        return response()->json($items);
+    }
+
+    public function getItemsByCategory($id)
+    {
+        $items = Item::where('item_category_id', $id)->get();
+        Log::info("$id ID: " . json_encode($items, JSON_PRETTY_PRINT));
         return response()->json($items);
     }
 }
