@@ -6,9 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
-use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController as FortifyAuthenticatedSessionController;
 
-class AuthenticatedSessionController extends FortifyAuthenticatedSessionController
+class AuthenticatedSessionController 
 {
     /**
      * The path users should be redirected to after login.

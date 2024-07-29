@@ -15,11 +15,17 @@ return new class extends Migration
             $table->id();
             $table->foreignId('item_category_id')->constrained()->onDelete('cascade');
             $table->string('name');
-            $table->string('serial_name');
             $table->string('serial_no');
+            $table->decimal('gst_rate', 5, 2)->nullable();
             $table->integer('opening_stock');
+            $table->integer('current_stock');
             $table->decimal('wholesale_price', 8, 2);
             $table->decimal('retail_price', 8, 2);
+            $table->string('image')->nullable();
+            $table->dateTime('last_purchase_date')->nullable();
+            $table->dateTime('last_sale_date')->nullable();
+            $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('set null');
+            $table->foreignId('updated_by')->nullable()->constrained('users')->onDelete('set null');
             $table->timestamps();
         });
     }

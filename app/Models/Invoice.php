@@ -5,23 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ItemCategory extends Model
+class Invoice extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name',
+        'customer_name',
+        'customer_address',
+        'gst_no',
+        'price_type',
+        'invoice_date',
+        'grand_total',
+        'total_tax',
         'created_by',
         'updated_by',
     ];
 
     public function items()
     {
-        return $this->hasMany(Item::class);
-    }
-
-    public function stockPurchases()
-    {
-        return $this->hasMany(StockPurchase::class);
+        return $this->hasMany(InvoiceItem::class);
     }
 }

@@ -77,13 +77,13 @@
                     <div class="position-sticky">
                         <ul class="nav flex-column mt-3">
                             <li class="nav-item mb-2 mt-2">
-                                <a class="nav-link active" aria-current="page" href="#">
+                                <a class="nav-link active" aria-current="page" href="{{ route('stock.report') }}">
                                     <span data-feather="home"></span>
-                                    Dashboard
+                                    Stock Report
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="{{ route('invoices.index') }}">
                                     <span data-feather="file"></span>
                                     Orders
                                 </a>

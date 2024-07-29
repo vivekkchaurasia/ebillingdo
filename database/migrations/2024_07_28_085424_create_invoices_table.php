@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -9,16 +10,17 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('stock_purchases', function (Blueprint $table) {
+        Schema::create('invoices', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('item_category_id')->constrained()->onDelete('cascade');
-            $table->foreignId('item_id')->constrained()->onDelete('cascade');
-            $table->date('date')->default(now());
-            $table->string('batch_no')->nullable();
-            $table->decimal('wholesale_price', 8, 2);
-            $table->decimal('retail_price', 8, 2);
+            $table->string('customer_name');
+            $table->string('customer_address');
+            $table->string('gst_no')->nullable();
+            $table->string('price_type')->nullable();
+            $table->dateTime('invoice_date')->default(DB::raw('now()'));
+            $table->decimal('grand_total', 15, 2)->default(0);
+            $table->decimal('total_tax', 15, 2)->default(0);
             $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('set null');
             $table->foreignId('updated_by')->nullable()->constrained('users')->onDelete('set null');
             $table->timestamps();
@@ -30,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('stock_purchases');
+        Schema::dropIfExists('invoices');
     }
 };

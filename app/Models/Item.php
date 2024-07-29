@@ -12,11 +12,17 @@ class Item extends Model
     protected $fillable = [
         'item_category_id',
         'name',
-        'serial_name',
         'serial_no',
+        'gst_rate',
         'opening_stock',
+        'current_stock',
         'wholesale_price',
-        'retail_price'
+        'retail_price',
+        'image',
+        'last_purchase_date',
+        'last_sale_date',
+        'created_by',
+        'updated_by',
     ];
 
     public function itemCategory()

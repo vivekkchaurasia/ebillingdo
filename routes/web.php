@@ -1,13 +1,15 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ItemCategoryController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\StockController;
 use App\Http\Controllers\StockPurchaseController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
+use Mews\Captcha\Captcha;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,9 +22,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route(auth()->check() ? 'home' : 'login');
 });
+
+Route::get('captcha', [Captcha::class, 'create']);
 
 Route::get('/home', function () {
     return view('home');
@@ -34,8 +40,10 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('item-categories', ItemCategoryController::class);
     Route::resource('items', ItemController::class);
     Route::resource('stock-purchases', StockPurchaseController::class);
-    Route::get('stock-purchases', [StockPurchaseController::class, 'index']);
-    Route::get('stock-purchases/{stockPurchase}', [StockPurchaseController::class, 'show']);
+    Route::resource('invoices', InvoiceController::class);
+    Route::get('/ListInvoice', [InvoiceController::class, 'ListInvoice'])->name('invoices.ListInvoice');
+    Route::get('/stock-report', [ItemController::class, 'stockReport'])->name('stock.report');
+
     
     Route::middleware(['role:admin'])->group(function () {
         
@@ -50,11 +58,18 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('clear-cache', function() {
-    Artisan::call('optimize');
-    Artisan::call('optimize:clear');
     Artisan::call('cache:clear');
+    echo "Cache Cleared ..............<br>";
+    Artisan::call('route:clear');
+    echo "Cache Cleared ..............<br>";
     Artisan::call('config:clear');
+    echo "Config Cleared ..............<br>";
     Artisan::call('view:clear');
+    echo "View Cleared ..............<br>";
+    Artisan::call('optimize');
+    echo "Optimized ..............<br>";
+    Artisan::call('optimize:clear');
+    echo "Optimize Cleared ..............<br>";
 });
 
 Auth::routes();

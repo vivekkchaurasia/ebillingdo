@@ -40,6 +40,15 @@
                         </div>
 
                         <div class="row mb-3">
+                            <label for="captcha">Captcha</label>
+                            <img src="{{ captcha_src() }}" alt="captcha" class="mb-3">
+                            <input type="text" class="form-control" name="captcha" placeholder="Enter CAPTCHA">
+                            @if ($errors->has('captcha'))
+                                <span class="text-danger">{{ $errors->first('captcha') }}</span>
+                            @endif
+                        </div>
+
+                        <div class="row mb-3">
                             <div class="col-md-6 offset-md-4">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
