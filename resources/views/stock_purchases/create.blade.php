@@ -36,42 +36,47 @@
         <button type="submit" class="btn btn-primary">Add Stock Purchase</button>
     </form>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/slim-select/2.8.2/slimselect.min.js"></script>
 <script>
     // Initialize SlimSelect for the dropdowns
     new SlimSelect({ select: '#item_category_id' });
-    new SlimSelect({ select: '#item_id' });
 
     // Fetch items based on category selection
     document.getElementById('item_category_id').addEventListener('change', function() {
-        const categoryId = this.value;
-        if (categoryId) {
-            axios.get(`/api/items/by-category/${categoryId}`)
-                .then(response => {
-                    console.log(response.data);
-                    const items = response.data;
-                    const itemSelect = document.getElementById('item_id');
-                    itemSelect.innerHTML = '<option value="">Select Item</option>';
-                    items.forEach(item => {
-                        const option = document.createElement('option');
-                        option.value = item.id;
-                        option.textContent = item.name;
-                        itemSelect.appendChild(option);
-                    });
-                    new SlimSelect({ select: '#item_id' });
-                })
-                .catch(error => console.error(error));
-        } else {
-            document.getElementById('item_id').innerHTML = '<option value="">Select Item</option>';
+    const categoryId = this.value;
+    if (categoryId) {
+        axios.get(`/items/by-category/${categoryId}`)
+            .then(response => {
+                console.info("Response Data:", JSON.stringify(response.data, null, 2));
+                const items = response.data;
+                const itemSelect = document.getElementById('item_id');
+                itemSelect.innerHTML = '<option value="">Select Item</option>';
+                items.forEach(item => {
+                    const option = document.createElement('option');
+                    option.value = item.id;
+                    option.textContent = item.name + " - " + item.serial_no;
+                    itemSelect.appendChild(option);
+                });
+                // Log the appended options
+                console.info("Appended Options:", itemSelect.innerHTML);
+                // Comment out the SlimSelect initialization for testing
+                new SlimSelect({ select: '#item_id' });
+            })
+            .catch(error => {
+                console.error('Error fetching items:', error);
+            });
+    } else {
+        document.getElementById('item_id').innerHTML = '<option value="">Select Item</option>';
         }
     });
+
+
+
 
     // Auto-fill prices when an item is selected
     document.getElementById('item_id').addEventListener('change', function() {
         const itemId = this.value;
         if (itemId) {
-            axios.get(`/api/items/${itemId}`)
+            axios.get(`/items/${itemId}`)
                 .then(response => {
                     const item = response.data;
                     document.getElementById('wholesale_price').value = item.wholesale_price;

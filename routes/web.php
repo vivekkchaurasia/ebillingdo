@@ -44,6 +44,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/ListInvoice', [InvoiceController::class, 'ListInvoice'])->name('invoices.ListInvoice');
     Route::get('/stock-report', [ItemController::class, 'stockReport'])->name('stock.report');
 
+    Route::get('/items/by-category/{id}', [ItemController::class, 'getItemsByCategory']);
     
     Route::middleware(['role:admin'])->group(function () {
         

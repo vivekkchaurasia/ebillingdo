@@ -12,9 +12,8 @@ class StockPurchaseController extends Controller
 {
     public function index()
     {
-        $purchases = StockPurchase::with(['category', 'item'])->get();
-        $categories = ItemCategory::all();
-        return view('stock_purchases.index', compact('purchases', 'categories'));
+        $purchases = StockPurchase::with('itemCategory', 'item')->get();
+        return view('stock_purchases.index', compact('purchases'));
     }
 
     public function create()

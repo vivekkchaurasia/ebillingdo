@@ -4,14 +4,25 @@
 <div class="container">
     <h1>Stock Purchases</h1>
     <a href="{{ route('stock-purchases.create') }}" class="btn btn-primary mb-3">Add Stock Purchase</a>
-    <ul class="list-group mt-3" id="purchaseList">
+    <table class="table table-bordered">
+        <thead class="bg-info text-white">
+            <tr>
+                <td>Item Name</td>
+                <td>Item Category</td>
+                <td>Purchase Date</td>
+                <td>Action</td>
+            </tr>
+        <tbody>
         @foreach($purchases as $purchase)
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                {{ $purchase->item->name }} ({{ $purchase->category->name }}) - {{ $purchase->date }}
-                <button class="btn btn-danger btn-sm" onclick="deletePurchase({{ $purchase->id }})">Delete</button>
-            </li>
+            <tr>
+                <td>{{ $purchase->item->name }}</td>
+                <td>{{ $purchase->itemCategory->name }}</td>
+                <td>{{ $purchase->created_at }}</td>
+                <td><button class="btn btn-danger btn-sm" onclick="deletePurchase({{ $purchase->id }})">Delete</button></td>
+            </tr>
         @endforeach
-    </ul>
+        </tbody>
+    </table>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>

@@ -141,7 +141,13 @@ class ItemController extends Controller
     public function getItemsByCategory($id)
     {
         $items = Item::where('item_category_id', $id)->get();
-        Log::info("$id ID: " . json_encode($items, JSON_PRETTY_PRINT));
+        //Log::info("Fetched items for category ID $id:", $items->toArray());
         return response()->json($items);
+    }
+
+    public function show($id)
+    {
+        $item = Item::findOrFail($id);
+        return response()->json($item);
     }
 }
