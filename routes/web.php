@@ -55,7 +55,7 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+    Route::get('/stock-report/filter', [ItemController::class, 'filterStockReport'])->name('stock.report.filter');
 });
 
 Route::get('clear-cache', function() {

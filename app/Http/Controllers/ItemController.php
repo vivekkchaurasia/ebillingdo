@@ -133,10 +133,12 @@ class ItemController extends Controller
             $query->whereDate('last_sale_date', $request->last_sale_date);
         }
 
+        Log::info("SQL: ". $query->toSql() . " Request: " . json_encode($request, JSON_PRETTY_PRINT));
         $items = $query->get();
 
         return response()->json($items);
     }
+
 
     public function getItemsByCategory($id)
     {
