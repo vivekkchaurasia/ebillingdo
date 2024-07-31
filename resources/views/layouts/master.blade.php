@@ -147,7 +147,7 @@
                         <li class="nav-item mb-2 mt-2">
                             <a class="nav-link" href="#">
                                 <span data-feather="layers"></span>
-                                Integrations
+                                Reports
                             </a>
                         </li>
                     </ul>
@@ -155,13 +155,13 @@
             </nav>
 
 
-                <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+                <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4 mb-5">
                     @yield('content')
                 </main>
             </div>
         </div>
 
-        <footer>
+        <footer class="mt-5">
             &copy; {{ date('Y') }} Powered by <a href="https://vhforge.com" class="link-warning" target="_blank">VHForge</a> All Rights Reserved.
         </footer>
     </div>
@@ -170,7 +170,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/slim-select/2.8.2/slimselect.min.js"></script>
     <script src="https://unpkg.com/feather-icons"></script>
     <script>
         feather.replace()

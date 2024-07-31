@@ -13,9 +13,7 @@ class StockPurchase extends Model
         'item_category_id',
         'item_id',
         'date',
-        'batch_no',
-        'wholesale_price',
-        'retail_price',        
+        'quantity',      
         'created_by',
         'updated_by',
     ];

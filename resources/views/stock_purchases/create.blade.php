@@ -25,17 +25,12 @@
             <input type="date" class="form-control" name="date" value="{{ date('Y-m-d') }}" required>
         </div>
         <div class="mb-3">
-            <input type="text" class="form-control" name="batch_no" placeholder="Batch No. (optional)">
-        </div>
-        <div class="mb-3">
-            <input type="number" readonly class="form-control" step="0.01" name="wholesale_price" id="wholesale_price" placeholder="Wholesale Price" required>
-        </div>
-        <div class="mb-3">
-            <input type="number" readonly class="form-control" step="0.01" name="retail_price" id="retail_price" placeholder="Retail Price" required>
+            <input type="text" class="form-control" name="quantity" placeholder="Quantity">
         </div>
         <button type="submit" class="btn btn-primary">Add Stock Purchase</button>
     </form>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slim-select/2.8.2/slimselect.min.js"></script>
 <script>
     // Initialize SlimSelect for the dropdowns
     new SlimSelect({ select: '#item_category_id' });
@@ -66,26 +61,6 @@
             });
     } else {
         document.getElementById('item_id').innerHTML = '<option value="">Select Item</option>';
-        }
-    });
-
-
-
-
-    // Auto-fill prices when an item is selected
-    document.getElementById('item_id').addEventListener('change', function() {
-        const itemId = this.value;
-        if (itemId) {
-            axios.get(`/items/${itemId}`)
-                .then(response => {
-                    const item = response.data;
-                    document.getElementById('wholesale_price').value = item.wholesale_price;
-                    document.getElementById('retail_price').value = item.retail_price;
-                })
-                .catch(error => console.error(error));
-        } else {
-            document.getElementById('wholesale_price').value = '';
-            document.getElementById('retail_price').value = '';
         }
     });
 

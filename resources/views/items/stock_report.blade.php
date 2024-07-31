@@ -80,9 +80,9 @@
                     <img src="{{ asset('storage/' . $item->image) }}" class="card-img-top img-thumbnail popup-image" alt="{{ $item->name }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ $item->name }}</h5>
-                        <p class="card-text">Category: {{ $item->itemCategory->name }}</p>
-                        <p class="card-text">Serial No.: {{ $item->serial_no }}</p>
-                        <p class="card-text">Current Stock: {{ $item->current_stock }}</p>
+                        <p class="card-text">({{ $item->itemCategory->name }})</p>
+                        <p class="card-text">{{ $item->serial_no }}</p>
+                        <p class="card-text text-secondary">Current Stock: {{ $item->current_stock }}</p>
                     </div>
                 </div>
             </div>
@@ -151,8 +151,8 @@
                     <img src="/storage/${item.image}" class="card-img-top img-thumbnail popup-image" alt="${item.name}">
                     <div class="card-body">
                         <h5 class="card-title">${item.name}</h5>
-                        <p class="card-text">Category: ${item.item_category.name}</p>
-                        <p class="card-text">Serial No.: ${item.serial_no}</p>
+                        <p class="card-text">${item.item_category.name}</p>
+                        <p class="card-text">${item.serial_no}</p>
                         <p class="card-text">Current Stock: ${item.current_stock}</p>
                     </div>
                 </div>

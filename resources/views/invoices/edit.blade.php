@@ -19,6 +19,10 @@
             <input type="text" class="form-control" id="gst_no" name="gst_no" value="{{ $invoice->gst_no }}">
         </div>
         <div class="mb-3">
+            <label for="email" class="form-label">Email (optional)</label>
+            <input type="email" class="form-control" id="email" name="email" value="{{ $invoice->email }}">
+        </div>        
+        <div class="mb-3">
             <label for="price_type" class="form-label">Price Type</label>
             <select class="form-control" id="price_type" name="price_type" required>
                 <option value="wholesale" {{ $invoice->price_type == 'wholesale' ? 'selected' : '' }}>Wholesale Price</option>

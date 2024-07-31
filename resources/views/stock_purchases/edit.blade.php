@@ -30,14 +30,9 @@
             <input type="date" class="form-control" name="date" value="{{ $stockPurchase->date }}" required>
         </div>
         <div class="mb-3">
-            <input type="text" class="form-control" name="batch_no" value="{{ $stockPurchase->batch_no }}" placeholder="Batch No. (optional)">
+            <input type="text" class="form-control" name="quantity" value="{{ $stockPurchase->quantity }}" placeholder="quantity">
         </div>
-        <div class="mb-3">
-            <input type="number" class="form-control" step="0.01" name="wholesale_price" id="wholesale_price" value="{{ $stockPurchase->wholesale_price }}" placeholder="Wholesale Price" required>
-        </div>
-        <div class="mb-3">
-            <input type="number" class="form-control" step="0.01" name="retail_price" id="retail_price" value="{{ $stockPurchase->retail_price }}" placeholder="Retail Price" required>
-        </div>
+        
         <button type="submit" class="btn btn-primary">Update Stock Purchase</button>
     </form>
 </div>
@@ -63,15 +58,6 @@
             })
             .catch(error => console.error(error));
         });
-    document.getElementById('item_id').addEventListener('change', function() {
-        const itemId = this.value;
-        axios.get(`/api/items/${itemId}`)
-            .then(response => {
-                const item = response.data;
-                document.getElementById('wholesale_price').value = item.wholesale_price;
-                document.getElementById('retail_price').value = item.retail_price;
-            })
-            .catch(error => console.error(error));
-    });
+    
 </script>
 @endsection

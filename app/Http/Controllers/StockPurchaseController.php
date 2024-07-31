@@ -29,9 +29,7 @@ class StockPurchaseController extends Controller
             'item_category_id' => 'required|exists:item_categories,id',
             'item_id' => 'required|exists:items,id',
             'date' => 'required|date',
-            'batch_no' => 'nullable|string',
-            'wholesale_price' => 'required|numeric',
-            'retail_price' => 'required|numeric',
+            'quantity' => 'required|integer|min:1',
         ]);
 
         $stockPurchase = new StockPurchase();
@@ -41,7 +39,7 @@ class StockPurchaseController extends Controller
         $stockPurchase->save();
 
         $item = Item::find($validated['item_id']);
-        $item->current_stock += 1; // Adjust quantity logic if needed
+        $item->current_stock += $validated['quantity']; // Adjust quantity logic if needed
         $item->last_purchase_date = now();
         $item->save();
 
@@ -66,15 +64,13 @@ class StockPurchaseController extends Controller
             'item_category_id' => 'required|exists:item_categories,id',
             'item_id' => 'required|exists:items,id',
             'date' => 'required|date',
-            'batch_no' => 'nullable|string|max:255',
-            'wholesale_price' => 'required|numeric',
-            'retail_price' => 'required|numeric',
             'quantity' => 'required|integer|min:1', // Ensure quantity is handled
         ]);
 
         // Revert stock adjustments for the existing stock purchase
         $oldItem = Item::find($stockPurchase->item_id);
-        $oldItem->current_stock -= $stockPurchase->quantity;
+        $oldItem->current_stock -= (int) $stockPurchase->quantity;
+        $oldItem->current_stock += (int) $validated['quantity'];
         $oldItem->save();
 
         // Update stock purchase details

@@ -18,7 +18,11 @@
                 <td>{{ $purchase->item->name }}</td>
                 <td>{{ $purchase->itemCategory->name }}</td>
                 <td>{{ $purchase->created_at }}</td>
-                <td><button class="btn btn-danger btn-sm" onclick="deletePurchase({{ $purchase->id }})">Delete</button></td>
+                <td>
+                    <a href="{{ route('stock-purchases.edit', $purchase->id) }}" class="btn btn-warning btn-sm">Edit</a>
+
+                    <button class="btn btn-danger btn-sm" onclick="deletePurchase({{ $purchase->id }})">Delete</button>
+                </td>
             </tr>
         @endforeach
         </tbody>

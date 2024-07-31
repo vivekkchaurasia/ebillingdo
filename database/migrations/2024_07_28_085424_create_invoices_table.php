@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('customer_name');
             $table->string('customer_address');
             $table->string('gst_no')->nullable();
+            $table->string('email')->nullable();
             $table->string('price_type')->nullable();
             $table->dateTime('invoice_date')->default(DB::raw('now()'));
             $table->decimal('grand_total', 15, 2)->default(0);

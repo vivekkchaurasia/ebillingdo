@@ -103,9 +103,7 @@ class ItemController extends Controller
         $categories = ItemCategory::all();
         $items = Item::with('itemCategory')->get();
         
-        foreach ($items as $item) {
-            $item->current_stock = $item->opening_stock + $item->purchased_stock - $item->sold_stock; // Adjust this logic based on your actual stock calculation
-        }
+        
         return view('items.stock_report', compact('items', 'categories'));
     }
 

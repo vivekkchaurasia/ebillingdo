@@ -13,6 +13,7 @@ class Invoice extends Model
         'customer_name',
         'customer_address',
         'gst_no',
+        'email',
         'price_type',
         'invoice_date',
         'grand_total',

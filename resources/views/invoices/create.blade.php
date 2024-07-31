@@ -19,6 +19,10 @@
             <input type="text" class="form-control" id="gst_no" name="gst_no">
         </div>
         <div class="mb-3">
+            <label for="email" class="form-label">Email (optional)</label>
+            <input type="email" class="form-control" id="email" name="email">
+        </div>
+        <div class="mb-3">
             <label for="price_type" class="form-label">Price Type</label>
             <select class="form-control" id="price_type" name="price_type" required>
                 <option value="retail" selected>Retail Price</option>
@@ -74,8 +78,6 @@
         </div>
     </form>
 </div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0/axios.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slim-select/2.8.2/slimselect.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {

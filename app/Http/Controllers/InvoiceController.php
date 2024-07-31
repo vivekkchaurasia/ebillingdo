@@ -28,6 +28,7 @@ class InvoiceController extends Controller
             'customer_name' => 'required|string|max:255',
             'customer_address' => 'required|string|max:255',
             'gst_no' => 'nullable|string|max:15',
+            'email' => 'nullable|string|max:120',
             'price_type' => 'required|in:wholesale,retail',
             'items' => 'required|array',
             'items.*.item_id' => 'required|exists:items,id',
@@ -38,6 +39,7 @@ class InvoiceController extends Controller
         $invoice->customer_name = $validated['customer_name'];
         $invoice->customer_address = $validated['customer_address'];
         $invoice->gst_no = $validated['gst_no'];
+        $invoice->email = $validated['email'];
         $invoice->price_type = $validated['price_type'];
         $invoice->invoice_date = now();
         $invoice->created_by = Auth::id();
@@ -99,6 +101,7 @@ class InvoiceController extends Controller
             'customer_name' => 'required|string|max:255',
             'customer_address' => 'required|string|max:255',
             'gst_no' => 'nullable|string|max:15',
+            'email' => 'nullable|string|max:120',
             'price_type' => 'required|in:wholesale,retail',
             'items' => 'required|array',
             'items.*.item_id' => 'required|exists:items,id',
@@ -121,6 +124,7 @@ class InvoiceController extends Controller
         $invoice->customer_name = $validated['customer_name'];
         $invoice->customer_address = $validated['customer_address'];
         $invoice->gst_no = $validated['gst_no'];
+        $invoice->email = $validated['email'];
         $invoice->price_type = $validated['price_type'];
         $invoice->updated_by = Auth::id();
         $invoice->save();

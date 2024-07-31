@@ -16,9 +16,7 @@ return new class extends Migration
             $table->foreignId('item_category_id')->constrained()->onDelete('cascade');
             $table->foreignId('item_id')->constrained()->onDelete('cascade');
             $table->date('date')->default(now());
-            $table->string('batch_no')->nullable();
-            $table->decimal('wholesale_price', 8, 2);
-            $table->decimal('retail_price', 8, 2);
+            $table->integer('quantity')->nullable();
             $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('set null');
             $table->foreignId('updated_by')->nullable()->constrained('users')->onDelete('set null');
             $table->timestamps();

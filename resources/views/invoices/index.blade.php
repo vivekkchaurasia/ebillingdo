@@ -10,7 +10,7 @@
                 <th>Customer Name</th>
                 <th>Customer Address</th>
                 <th>GST No.</th>
-                <th>Price Type</th>
+                <th>Sale Type</th>
                 <th>Items</th>
                 <th>Actions</th>
             </tr>
