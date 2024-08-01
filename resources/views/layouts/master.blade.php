@@ -145,9 +145,21 @@
                             </a>
                         </li>
                         <li class="nav-item mb-2 mt-2">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link {{ request()->routeIs('users.index') ? 'active' : '' }}" href="{{ route('users.index') }}">
                                 <span data-feather="layers"></span>
-                                Reports
+                                Users
+                            </a>
+                        </li>
+                        <li class="nav-item mb-2 mt-2">
+                            <a class="nav-link {{ request()->routeIs('user-roles.index') ? 'active' : '' }}" href="{{ route('user-roles.index') }}">
+                                <span data-feather="layers"></span>
+                                Roles
+                            </a>
+                        </li>
+                        <li class="nav-item mb-2 mt-2">
+                            <a class="nav-link {{ request()->routeIs('user-permissions.index') ? 'active' : '' }}" href="{{ route('user-permissions.index') }}">
+                                <span data-feather="layers"></span>
+                                Permissions
                             </a>
                         </li>
                     </ul>

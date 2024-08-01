@@ -4,8 +4,13 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ItemCategoryController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\StockPurchaseController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserPermissionsController;
+use App\Http\Controllers\UserRolesController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -40,15 +45,15 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('item-categories', ItemCategoryController::class);
     Route::resource('items', ItemController::class);
     Route::resource('stock-purchases', StockPurchaseController::class);
+    Route::resource('users', UserController::class);
+    Route::resource('user-roles', UserRolesController::class);
+    Route::resource('user-permissions', UserPermissionsController::class);
     
     Route::resource('invoices', InvoiceController::class);
     Route::get('/ListInvoice', [InvoiceController::class, 'ListInvoice'])->name('invoices.ListInvoice');
     Route::get('/invoices/{id}/pdf', [InvoiceController::class, 'downloadPdf'])->name('invoices.downloadPdf');
-
     Route::get('/stock-report', [ItemController::class, 'stockReport'])->name('stock.report');
-
-    Route::get('/items/by-category/{id}', [ItemController::class, 'getItemsByCategory']);
-    
+    Route::get('/items/by-category/{id}', [ItemController::class, 'getItemsByCategory']);    
     Route::middleware(['role:admin'])->group(function () {
         
     });
