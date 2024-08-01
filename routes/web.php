@@ -40,8 +40,11 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('item-categories', ItemCategoryController::class);
     Route::resource('items', ItemController::class);
     Route::resource('stock-purchases', StockPurchaseController::class);
+    
     Route::resource('invoices', InvoiceController::class);
     Route::get('/ListInvoice', [InvoiceController::class, 'ListInvoice'])->name('invoices.ListInvoice');
+    Route::get('/invoices/{id}/pdf', [InvoiceController::class, 'downloadPdf'])->name('invoices.downloadPdf');
+
     Route::get('/stock-report', [ItemController::class, 'stockReport'])->name('stock.report');
 
     Route::get('/items/by-category/{id}', [ItemController::class, 'getItemsByCategory']);

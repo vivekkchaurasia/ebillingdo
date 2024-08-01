@@ -32,6 +32,7 @@
                     <td>
                         <a href="{{ route('invoices.show', $invoice->id) }}" class="btn btn-info">Show</a>
                         <a href="{{ route('invoices.edit', $invoice->id) }}" class="btn btn-warning">Edit</a>
+                        <a href="{{ route('invoices.downloadPdf', $invoice->id) }}" class="btn btn-primary">PDF</a>
                         <form action="{{ route('invoices.destroy', $invoice->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')

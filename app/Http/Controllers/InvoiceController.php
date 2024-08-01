@@ -7,6 +7,10 @@ use App\Models\InvoiceItem;
 use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+
+use App\Mail\InvoiceCreated;
+use PDF;
 
 class InvoiceController extends Controller
 {
@@ -79,6 +83,10 @@ class InvoiceController extends Controller
         $invoice->total_tax = $totalTax;
         $invoice->save();
 
+        if (!empty($invoice->email)) {
+            Mail::to($invoice->email)->send(new InvoiceCreated($invoice));
+        }
+
         return response()->json(['message' => 'Invoice created successfully']);
     }
 
@@ -93,6 +101,13 @@ class InvoiceController extends Controller
         $invoice = Invoice::with('items')->findOrFail($id);
         $items = Item::all();
         return view('invoices.edit', compact('invoice', 'items'));
+    }
+
+    public function downloadPdf($id)
+    {
+        $invoice = Invoice::with('items.item')->findOrFail($id);
+        $pdf = PDF::loadView('invoices.pdf', compact('invoice'));
+        return $pdf->download('invoice_' . $invoice->id . '.pdf');
     }
 
     public function update(Request $request, $id)

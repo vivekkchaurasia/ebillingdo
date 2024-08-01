@@ -51,5 +51,6 @@
             </tr>
         </tfoot>
     </table>
+    <a href="{{ route('invoices.downloadPdf', $invoice->id) }}" class="btn btn-primary">Download PDF</a>
 </div>
 @endsection
