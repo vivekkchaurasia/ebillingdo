@@ -30,7 +30,7 @@ class UserRolesController extends Controller
         $role = Role::create(['name' => $request->name]);
         $role->syncPermissions($request->permissions);
 
-        return redirect()->route('roles.index')->with('success', 'Role created successfully');
+        return redirect()->route('user-roles.index')->with('success', 'Role created successfully');
     }
 
     public function edit($id)
@@ -51,17 +51,22 @@ class UserRolesController extends Controller
             'permissions' => 'required|array',
         ]);
 
-        $role->update(['name' => $request->name]);
-        $role->syncPermissions($request->permissions);
+        // Convert permission IDs to names
+        $permissionIds = $request->input('permissions', []);
+        $permissionNames = Permission::whereIn('id', $permissionIds)->pluck('name')->toArray();
 
-        return redirect()->route('roles.index')->with('success', 'Role updated successfully');
+        $role->update(['name' => $request->name]);
+        $role->syncPermissions($permissionNames);
+
+        return redirect()->route('user-roles.index')->with('success', 'Role updated successfully');
     }
+
 
     public function destroy($id)
     {
         $role = Role::findOrFail($id);
         $role->delete();
 
-        return redirect()->route('roles.index')->with('success', 'Role deleted successfully');
+        return redirect()->route('user-roles.index')->with('success', 'Role deleted successfully');
     }
 }

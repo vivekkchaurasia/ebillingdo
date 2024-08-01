@@ -9,5 +9,7 @@ class Role extends SpatieRole
 {
     use HasFactory;
 
+    protected $fillable = ['name',];
+
     // No need to redefine relationships as they are inherited from Spatie\Permission\Models\Role
 }

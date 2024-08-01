@@ -26,7 +26,7 @@ class UserPermissionsController extends Controller
 
         Permission::create(['name' => $request->name]);
 
-        return redirect()->route('permissions.index')->with('success', 'Permission created successfully');
+        return redirect()->route('user-permissions.index')->with('success', 'Permission created successfully');
     }
 
     public function edit($id)
@@ -45,7 +45,7 @@ class UserPermissionsController extends Controller
 
         $permission->update(['name' => $request->name]);
 
-        return redirect()->route('permissions.index')->with('success', 'Permission updated successfully');
+        return redirect()->route('user-permissions.index')->with('success', 'Permission updated successfully');
     }
 
     public function destroy($id)
@@ -53,6 +53,6 @@ class UserPermissionsController extends Controller
         $permission = Permission::findOrFail($id);
         $permission->delete();
 
-        return redirect()->route('permissions.index')->with('success', 'Permission deleted successfully');
+        return redirect()->route('user-permissions.index')->with('success', 'Permission deleted successfully');
     }
 }

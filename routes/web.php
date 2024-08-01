@@ -1,5 +1,4 @@
 <?php
-
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ItemCategoryController;
@@ -16,19 +15,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Mews\Captcha\Captcha;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
-
-
 Route::get('/', function () {
     return redirect()->route(auth()->check() ? 'home' : 'login');
 });
@@ -42,35 +28,24 @@ Route::get('/home', function () {
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
-    Route::resource('item-categories', ItemCategoryController::class);
-    Route::resource('items', ItemController::class);
-    Route::resource('stock-purchases', StockPurchaseController::class);
-    Route::resource('users', UserController::class);
-    Route::resource('user-roles', UserRolesController::class);
-    Route::resource('user-permissions', UserPermissionsController::class);
-    
-    Route::resource('invoices', InvoiceController::class);
-    Route::get('/ListInvoice', [InvoiceController::class, 'ListInvoice'])->name('invoices.ListInvoice');
-    Route::get('/invoices/{id}/pdf', [InvoiceController::class, 'downloadPdf'])->name('invoices.downloadPdf');
-    Route::get('/stock-report', [ItemController::class, 'stockReport'])->name('stock.report');
-    Route::get('/items/by-category/{id}', [ItemController::class, 'getItemsByCategory']);    
-    Route::middleware(['role:admin'])->group(function () {
-        
-    });
-
-    Route::middleware(['permission:view-stock-purchases'])->group(function () {
-        
-    });
-
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::get('/stock-report/filter', [ItemController::class, 'filterStockReport'])->name('stock.report.filter');
+    Route::resource('item-categories', ItemCategoryController::class)->middleware('permission:view-item-categories');
+    Route::resource('items', ItemController::class)->middleware('permission:view-items');
+    Route::resource('stock-purchases', StockPurchaseController::class)->middleware('permission:view-stock-purchases');
+    Route::resource('users', UserController::class)->middleware('permission:view-users');
+    Route::resource('user-roles', UserRolesController::class)->middleware('permission:view-roles');
+    Route::resource('user-permissions', UserPermissionsController::class)->middleware('permission:view-permissions');
+    Route::resource('invoices', InvoiceController::class)->middleware('permission:view-invoices');
+    Route::get('/ListInvoice', [InvoiceController::class, 'ListInvoice'])->name('invoices.ListInvoice')->middleware('permission:view-invoices');
+    Route::get('/invoices/{id}/pdf', [InvoiceController::class, 'downloadPdf'])->name('invoices.downloadPdf')->middleware('permission:view-invoices');
+    Route::get('/stock-report', [ItemController::class, 'stockReport'])->name('stock.report')->middleware('permission:view-stock-report');
+    Route::get('/items/by-category/{id}', [ItemController::class, 'getItemsByCategory'])->middleware('permission:view-items');
 });
 
 Route::get('clear-cache', function() {
     Artisan::call('cache:clear');
     echo "Cache Cleared ..............<br>";
     Artisan::call('route:clear');
-    echo "Cache Cleared ..............<br>";
+    echo "Route Cleared ..............<br>";
     Artisan::call('config:clear');
     echo "Config Cleared ..............<br>";
     Artisan::call('view:clear');
@@ -82,4 +57,3 @@ Route::get('clear-cache', function() {
 });
 
 Auth::routes();
-
