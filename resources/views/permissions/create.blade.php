@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <h1>Create New Permission</h1>
-    <form action="{{ route('permissions.store') }}" method="POST">
+    <form action="{{ route('user-permissions.store') }}" method="POST">
         @csrf
         <div class="form-group">
             <label for="name">Permission Name</label>
