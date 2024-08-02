@@ -44,9 +44,11 @@ class RolePermissionSeeder extends Seeder
             'view-invoices', 'create-invoices', 'edit-invoices', 'delete-invoices','view-stock-report'
         ];
 
-        //Save All Permissions
+        // Save All Permissions if they don't exist
         foreach ($permissions as $permission) {
-            Permission::create(['name' => $permission]);
+            if (!Permission::where('name', $permission)->exists()) {
+                Permission::create(['name' => $permission]);
+            }
         }
 
         // Assign all permissions to the super admin role
@@ -55,8 +57,7 @@ class RolePermissionSeeder extends Seeder
         // Assign Super admin role to the super admin user
         $user->assignRole($SuperadminRole);
 
-        
-        //Create Admin Role Define and Sync permissions
+        // Create Admin Role Define and Sync permissions
         $adminRole = Role::create(['name' => 'admin']);
         $adminPermissions = [
             'view-item-categories', 'create-item-categories', 'edit-item-categories', 'delete-item-categories',
@@ -66,12 +67,11 @@ class RolePermissionSeeder extends Seeder
             'view-invoices', 'create-invoices', 'edit-invoices', 'delete-invoices','view-stock-report'
         ];
         $adminRole->syncPermissions($adminPermissions);
-        
 
         // Assign admin role to the admin user
         $adminUser->assignRole($adminRole);
 
-        //Create purchaseInvoice Role Define and Sync permissions
+        // Create purchaseInvoice Role Define and Sync permissions
         $purchaseInvoiceRole = Role::create(['name' => 'purchase-invoice']);
         $purchaseInvoicPermissions = [
             'view-stock-purchases', 'create-stock-purchases', 'edit-stock-purchases', 'delete-stock-purchases',
@@ -79,7 +79,7 @@ class RolePermissionSeeder extends Seeder
         ];
         $purchaseInvoiceRole->syncPermissions($purchaseInvoicPermissions);
 
-        //Create subAdmin Role Define and Sync permissions
+        // Create subAdmin Role Define and Sync permissions
         $subAdminRole = Role::create(['name' => 'sub-admin']);
         $subAdminPermissions = [
             'view-item-categories', 'create-item-categories', 'edit-item-categories', 'delete-item-categories',
