@@ -41,7 +41,7 @@ class RolePermissionSeeder extends Seeder
             'view-users', 'create-users', 'edit-users', 'delete-users',
             'view-roles', 'create-roles', 'edit-roles', 'delete-roles',
             'view-permissions', 'create-permissions', 'edit-permissions', 'delete-permissions',
-            'view-invoices', 'create-invoices', 'edit-invoices', 'delete-invoices','view-stock-report'
+            'view-invoices', 'create-invoices', 'edit-invoices', 'delete-invoices', 'view-stock-report'
         ];
 
         // Save All Permissions if they don't exist
@@ -64,7 +64,7 @@ class RolePermissionSeeder extends Seeder
             'view-items', 'create-items', 'edit-items', 'delete-items',
             'view-stock-purchases', 'create-stock-purchases', 'edit-stock-purchases', 'delete-stock-purchases',
             'view-users', 'create-users', 'edit-users', 'delete-users',
-            'view-invoices', 'create-invoices', 'edit-invoices', 'delete-invoices','view-stock-report'
+            'view-invoices', 'create-invoices', 'edit-invoices', 'delete-invoices', 'view-stock-report'
         ];
         $adminRole->syncPermissions($adminPermissions);
 
@@ -73,11 +73,11 @@ class RolePermissionSeeder extends Seeder
 
         // Create purchaseInvoice Role Define and Sync permissions
         $purchaseInvoiceRole = Role::create(['name' => 'purchase-invoice']);
-        $purchaseInvoicPermissions = [
+        $purchaseInvoicePermissions = [
             'view-stock-purchases', 'create-stock-purchases', 'edit-stock-purchases', 'delete-stock-purchases',
-            'view-invoices', 'create-invoices', 'edit-invoices', 'delete-invoices','view-stock-report'
+            'view-invoices', 'create-invoices', 'edit-invoices', 'delete-invoices', 'view-stock-report'
         ];
-        $purchaseInvoiceRole->syncPermissions($purchaseInvoicPermissions);
+        $purchaseInvoiceRole->syncPermissions($purchaseInvoicePermissions);
 
         // Create subAdmin Role Define and Sync permissions
         $subAdminRole = Role::create(['name' => 'sub-admin']);
@@ -85,7 +85,7 @@ class RolePermissionSeeder extends Seeder
             'view-item-categories', 'create-item-categories', 'edit-item-categories', 'delete-item-categories',
             'view-items', 'create-items', 'edit-items', 'delete-items',
             'view-stock-purchases', 'create-stock-purchases', 'edit-stock-purchases', 'delete-stock-purchases',
-            'view-invoices', 'create-invoices', 'edit-invoices', 'delete-invoices','view-stock-report'
+            'view-invoices', 'create-invoices', 'edit-invoices', 'delete-invoices', 'view-stock-report'
         ];
         $subAdminRole->syncPermissions($subAdminPermissions);
     }
