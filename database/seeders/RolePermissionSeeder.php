@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
@@ -20,11 +21,18 @@ class RolePermissionSeeder extends Seeder
         $user = User::create([
             'name' => 'Vivek',
             'email' => 'ervivekkc@gmail.com',
-            'password' => bcrypt('Vivek@2025'), // Always use bcrypt to hash passwords
+            'password' => Hash::make('Vivek@2025'), // Always use bcrypt to hash passwords
+        ]);
+
+        $adminUser = User::create([
+            'name' => 'Prakash Motiramani',
+            'email' => 'devi@gmail.com',
+            'password' => Hash::make('Devi@2024'), // Always use bcrypt to hash passwords
         ]);
 
         // Create role
-        $adminRole = Role::create(['name' => 'Admin']);
+        $SuperadminRole = Role::create(['name' => 'SuperAdmin']);
+        $adminRole = Role::create(['name' => 'admin']);
 
         // Create permissions
         $permissions = [
@@ -34,18 +42,30 @@ class RolePermissionSeeder extends Seeder
             'view-users', 'create-users', 'edit-users', 'delete-users',
             'view-roles', 'create-roles', 'edit-roles', 'delete-roles',
             'view-permissions', 'create-permissions', 'edit-permissions', 'delete-permissions',
-            'view-invoices', 'create-invoices', 'edit-invoices', 'delete-invoices',
+            'view-invoices', 'create-invoices', 'edit-invoices', 'delete-invoices','view-stock-report'
         ];
 
         foreach ($permissions as $permission) {
             Permission::create(['name' => $permission]);
         }
 
-        // Assign all permissions to the admin role
-        $adminRole->syncPermissions($permissions);
+        // Assign all permissions to the super admin role
+        $SuperadminRole->syncPermissions($permissions);
+
+        // Assign Super admin role to the super admin user
+        $user->assignRole($SuperadminRole);
+
+        $adminPermissions = [
+            'view-item-categories', 'create-item-categories', 'edit-item-categories', 'delete-item-categories',
+            'view-items', 'create-items', 'edit-items', 'delete-items',
+            'view-stock-purchases', 'create-stock-purchases', 'edit-stock-purchases', 'delete-stock-purchases',
+            'view-users', 'create-users', 'edit-users', 'delete-users',
+            'view-invoices', 'create-invoices', 'edit-invoices', 'delete-invoices','view-stock-report'
+        ];
+        $adminRole->syncPermissions($adminPermissions);
         
 
-        // Assign admin role to the user
-        $user->assignRole($adminRole);
+        // Assign admin role to the admin user
+        $adminUser->assignRole($adminRole);
     }
 }

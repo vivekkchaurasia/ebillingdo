@@ -10,13 +10,13 @@ class UserRolesController extends Controller
 {
     public function index()
     {
-        $roles = Role::all();
+        $roles = Role::orderBy('name', 'asc')->get();
         return view('roles.index', compact('roles'));
     }
 
     public function create()
     {
-        $permissions = Permission::all();
+        $permissions = Permission::orderBy('name', 'asc')->get();
         return view('roles.create', compact('permissions'));
     }
 
@@ -27,8 +27,12 @@ class UserRolesController extends Controller
             'permissions' => 'required|array',
         ]);
 
+        $permissionIds = $request->input('permissions', []);
+        $permissionNames = Permission::whereIn('id', $permissionIds)->pluck('name')->toArray();
+
+
         $role = Role::create(['name' => $request->name]);
-        $role->syncPermissions($request->permissions);
+        $role->syncPermissions($permissionNames);
 
         return redirect()->route('user-roles.index')->with('success', 'Role created successfully');
     }
@@ -36,7 +40,7 @@ class UserRolesController extends Controller
     public function edit($id)
     {
         $role = Role::findOrFail($id);
-        $permissions = Permission::all();
+        $permissions = Permission::orderBy('name', 'asc')->get();
         $rolePermissions = $role->permissions->pluck('name')->toArray();
 
         return view('roles.edit', compact('role', 'permissions', 'rolePermissions'));

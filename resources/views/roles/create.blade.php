@@ -11,7 +11,7 @@
         </div>
         <div class="form-group">
             <label for="permissions">Assign Permissions</label>
-            <select class="form-control" id="permissions" name="permissions[]" multiple>
+            <select class="form-control" id="permissions" name="permissions[]" multiple multiple size="10">
                 @foreach($permissions as $permission)
                     <option value="{{ $permission->id }}">{{ $permission->name }}</option>
                 @endforeach

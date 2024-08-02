@@ -114,55 +114,79 @@
             <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
                 <div class="position-sticky">
                     <ul class="nav flex-column mt-3 mb-2">
+                        @can('view-invoices')
                         <li class="nav-item mb-2 mt-2">
                             <a class="nav-link {{ request()->routeIs('invoices.index') ? 'active' : '' }}" href="{{ route('invoices.index') }}">
                                 <span data-feather="file"></span>
                                 Invoice
                             </a>
                         </li>
+                        @endcan
+                    
+                        @can('view-stock-report')
                         <li class="nav-item mb-2 mt-2">
                             <a class="nav-link {{ request()->routeIs('stock.report') ? 'active' : '' }}" aria-current="page" href="{{ route('stock.report') }}">
                                 <span data-feather="home"></span>
                                 Stock Report
                             </a>
                         </li>
+                        @endcan
+                    
+                        @can('view-stock-purchases')
                         <li class="nav-item mb-2 mt-2">
                             <a class="nav-link {{ request()->routeIs('stock-purchases.index') ? 'active' : '' }}" href="{{ route('stock-purchases.index') }}">
                                 <span data-feather="shopping-cart"></span>
                                 Stock Purchases
                             </a>
                         </li>
+                        @endcan
+                    
+                        @can('view-items')
                         <li class="nav-item mb-2 mt-2">
                             <a class="nav-link {{ request()->routeIs('items.index') ? 'active' : '' }}" href="{{ route('items.index') }}">
                                 <span data-feather="users"></span>
                                 Item
                             </a>
                         </li>
+                        @endcan
+                    
+                        @can('view-item-categories')
                         <li class="nav-item mb-2 mt-2">
                             <a class="nav-link {{ request()->routeIs('item-categories.index') ? 'active' : '' }}" href="{{ route('item-categories.index') }}">
                                 <span data-feather="bar-chart-2"></span>
                                 Item Categories
                             </a>
                         </li>
+                        @endcan
+                    
+                        @can('view-users')
                         <li class="nav-item mb-2 mt-2">
                             <a class="nav-link {{ request()->routeIs('users.index') ? 'active' : '' }}" href="{{ route('users.index') }}">
                                 <span data-feather="layers"></span>
                                 Users
                             </a>
                         </li>
+                        @endcan
+                    
+                        @can('view-roles')
                         <li class="nav-item mb-2 mt-2">
                             <a class="nav-link {{ request()->routeIs('user-roles.index') ? 'active' : '' }}" href="{{ route('user-roles.index') }}">
                                 <span data-feather="layers"></span>
                                 Roles
                             </a>
                         </li>
+                        @endcan
+                    
+                        @can('view-permissions')
                         <li class="nav-item mb-2 mt-2">
                             <a class="nav-link {{ request()->routeIs('user-permissions.index') ? 'active' : '' }}" href="{{ route('user-permissions.index') }}">
                                 <span data-feather="layers"></span>
                                 Permissions
                             </a>
                         </li>
+                        @endcan
                     </ul>
+                    
                 </div>
             </nav>
 

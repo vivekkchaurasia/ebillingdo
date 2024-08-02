@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
@@ -11,7 +12,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::all();
+        $users = User::where('id', '!=', 1)->orderBy('name', 'asc')->get();
         return view('users.index', compact('users'));
     }
 
@@ -23,7 +24,11 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        $user = User::create($request->only('name', 'email', 'password'));
+        $user = User::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+        ]);
         $user->assignRole($request->role);
         return redirect()->route('users.index');
     }

@@ -47,7 +47,7 @@
                         <input type="number" class="form-control item-quantity" name="items[0][quantity]" placeholder="Quantity" required>
                     </div>
                     <div class="col-2">
-                        <input type="text" class="form-control item-rate" name="items[0][rate]" placeholder="Rate" readonly>
+                        <input type="text" class="form-control item-rate" name="items[0][rate]" placeholder="Rate">
                     </div>
                     <div class="col-2">
                         <input type="text" class="form-control item-tax" name="items[0][tax]" placeholder="Tax" readonly>
@@ -104,7 +104,7 @@
                         <input type="number" class="form-control item-quantity" name="items[${itemIndex}][quantity]" placeholder="Quantity" required>
                     </div>
                     <div class="col-2">
-                        <input type="text" class="form-control item-rate" name="items[${itemIndex}][rate]" placeholder="Rate" readonly>
+                        <input type="text" class="form-control item-rate" name="items[${itemIndex}][rate]" placeholder="Rate">
                     </div>
                     <div class="col-2">
                         <input type="text" class="form-control item-tax" name="items[${itemIndex}][tax]" placeholder="Tax" readonly>
