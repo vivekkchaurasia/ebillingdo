@@ -135,21 +135,29 @@
 
         document.getElementById('items').addEventListener('change', function (e) {
             if (e.target && e.target.classList.contains('item-select')) {
-                console.log('Item selected');
+                //console.log('Item selected');
                 updateItemRateAndTax(e.target);
             }
         });
 
         document.getElementById('items').addEventListener('input', function (e) {
             if (e.target && e.target.classList.contains('item-quantity')) {
-                console.log('Quantity changed');
+                //console.log('Quantity changed');
+                updateItemTax(e.target);
+                calculateTotals();
+            }
+        });
+
+        document.getElementById('items').addEventListener('input', function (e) {
+            if (e.target && e.target.classList.contains('rate')) {
+                //console.log('Quantity changed');
                 updateItemTax(e.target);
                 calculateTotals();
             }
         });
 
         document.getElementById('price_type').addEventListener('change', function () {
-            console.log('Price type changed');
+            //console.log('Price type changed');
             document.querySelectorAll('.item-select').forEach(select => {
                 updateItemRateAndTax(select);
             });

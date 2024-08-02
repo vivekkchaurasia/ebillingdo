@@ -26,15 +26,14 @@ class RolePermissionSeeder extends Seeder
 
         $adminUser = User::create([
             'name' => 'Prakash Motiramani',
-            'email' => 'devi@gmail.com',
+            'email' => 'devioffset00@gmail.com',
             'password' => Hash::make('Devi@2024'), // Always use bcrypt to hash passwords
         ]);
 
-        // Create role
+        // Create Super Admin role
         $SuperadminRole = Role::create(['name' => 'SuperAdmin']);
-        $adminRole = Role::create(['name' => 'admin']);
 
-        // Create permissions
+        // Create Super Admin permissions
         $permissions = [
             'view-item-categories', 'create-item-categories', 'edit-item-categories', 'delete-item-categories',
             'view-items', 'create-items', 'edit-items', 'delete-items',
@@ -45,6 +44,7 @@ class RolePermissionSeeder extends Seeder
             'view-invoices', 'create-invoices', 'edit-invoices', 'delete-invoices','view-stock-report'
         ];
 
+        //Save All Permissions
         foreach ($permissions as $permission) {
             Permission::create(['name' => $permission]);
         }
@@ -55,6 +55,9 @@ class RolePermissionSeeder extends Seeder
         // Assign Super admin role to the super admin user
         $user->assignRole($SuperadminRole);
 
+        
+        //Create Admin Role Define and Sync permissions
+        $adminRole = Role::create(['name' => 'admin']);
         $adminPermissions = [
             'view-item-categories', 'create-item-categories', 'edit-item-categories', 'delete-item-categories',
             'view-items', 'create-items', 'edit-items', 'delete-items',
@@ -67,5 +70,23 @@ class RolePermissionSeeder extends Seeder
 
         // Assign admin role to the admin user
         $adminUser->assignRole($adminRole);
+
+        //Create purchaseInvoice Role Define and Sync permissions
+        $purchaseInvoiceRole = Role::create(['name' => 'purchase-invoice']);
+        $purchaseInvoicPermissions = [
+            'view-stock-purchases', 'create-stock-purchases', 'edit-stock-purchases', 'delete-stock-purchases',
+            'view-invoices', 'create-invoices', 'edit-invoices', 'delete-invoices','view-stock-report'
+        ];
+        $purchaseInvoiceRole->syncPermissions($purchaseInvoicPermissions);
+
+        //Create subAdmin Role Define and Sync permissions
+        $subAdminRole = Role::create(['name' => 'sub-admin']);
+        $subAdminPermissions = [
+            'view-item-categories', 'create-item-categories', 'edit-item-categories', 'delete-item-categories',
+            'view-items', 'create-items', 'edit-items', 'delete-items',
+            'view-stock-purchases', 'create-stock-purchases', 'edit-stock-purchases', 'delete-stock-purchases',
+            'view-invoices', 'create-invoices', 'edit-invoices', 'delete-invoices','view-stock-report'
+        ];
+        $subAdminRole->syncPermissions($subAdminPermissions);
     }
 }

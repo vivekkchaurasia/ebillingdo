@@ -53,4 +53,5 @@ Route::get('clear-cache', function() {
     echo "Optimize Cleared ..............<br>";
 });
 
-Auth::routes();
+
+Auth::routes(['register' => false]);

@@ -18,7 +18,7 @@ class UserController extends Controller
 
     public function create()
     {
-        $roles = Role::all();
+        $roles = Role::where('id', '!=', 1)->orderBy('name', 'asc')->get();
         return view('users.create', compact('roles'));
     }
 
@@ -29,12 +29,19 @@ class UserController extends Controller
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
         ]);
-        $user->assignRole($request->role);
+
+        $roleIds = $request->input('roles', []);
+        $roleNames = Role::whereIn('id', $roleIds)->pluck('name')->toArray();
+        $user->assignRole($roleNames);
+        
         return redirect()->route('users.index');
     }
 
     public function edit($id)
     {
+        if ($id==1) {
+            return redirect()->route('users.index')->with('error', 'This user cannot be edited.');
+        }
         $user = User::findOrFail($id);
         $roles = Role::all();
         return view('users.edit', compact('user', 'roles'));
@@ -44,13 +51,22 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->update($request->only('name', 'email'));
-        $user->syncRoles($request->role);
+
+        $roleIds = $request->input('roles', []);
+        $roleNames = Role::whereIn('id', $roleIds)->pluck('name')->toArray();
+        $user->syncRoles($roleNames);
+
         return redirect()->route('users.index');
     }
 
     public function destroy($id)
     {
+        if (in_array($id, [1, 2])) {
+            return redirect()->route('users.index')->with('error', 'This user cannot be deleted.');
+        }
+
         User::destroy($id);
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->with('success', 'User deleted successfully.');
     }
+
 }
