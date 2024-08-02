@@ -145,16 +145,13 @@
                 //console.log('Quantity changed');
                 updateItemTax(e.target);
                 calculateTotals();
-            }
-        });
-
-        document.getElementById('items').addEventListener('input', function (e) {
-            if (e.target && e.target.classList.contains('rate')) {
-                //console.log('Quantity changed');
+            } else if (e.target && e.target.classList.contains('item-rate')) {
                 updateItemTax(e.target);
                 calculateTotals();
             }
         });
+
+        
 
         document.getElementById('price_type').addEventListener('change', function () {
             //console.log('Price type changed');

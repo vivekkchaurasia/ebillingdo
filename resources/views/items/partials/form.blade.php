@@ -13,7 +13,7 @@
     <input type="text" class="form-control form-control-sm" name="serial_no" placeholder="Serial No." value="{{ $item->serial_no ?? '' }}" required>
 </div>
 <div class="mb-3">
-    <input type="text" class="form-control form-control-sm" name="gst_rate" placeholder="GST Rate" value="{{ $item->gst_rate ?? '' }}" required>
+    <input type="text" class="form-control form-control-sm" name="gst_rate" placeholder="GST Rate" value="{{ $item->gst_rate ?? '18' }}" required>
 </div>
 <div class="mb-3">
     <input type="number" class="form-control form-control-sm" name="opening_stock" placeholder="Opening Stock" value="{{ $item->opening_stock ?? '' }}" required>

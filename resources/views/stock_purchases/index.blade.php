@@ -8,7 +8,9 @@
         <thead class="bg-info text-white">
             <tr>
                 <td>Item Name</td>
+                <td>Serial No.</td>
                 <td>Item Category</td>
+                <td>Quantity</td>
                 <td>Purchase Date</td>
                 <td>Action</td>
             </tr>
@@ -16,8 +18,10 @@
         @foreach($purchases as $purchase)
             <tr>
                 <td>{{ $purchase->item->name }}</td>
+                <td>{{ $purchase->item->id }}</td>
                 <td>{{ $purchase->itemCategory->name }}</td>
-                <td>{{ $purchase->created_at }}</td>
+                <td>{{ $purchase->quantity }}</td>
+                <td>{{ date('d-m-Y h:i A', strtotime($purchase->created_at)) }}</td>
                 <td>
                     <a href="{{ route('stock-purchases.edit', $purchase->id) }}" class="btn btn-warning btn-sm">Edit</a>
 
