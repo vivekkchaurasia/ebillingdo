@@ -7,6 +7,7 @@
     <table class="table table-bordered">
         <thead>
             <tr>
+                <th>Invoice Date</th>
                 <th>Customer Name</th>
                 <th>Customer Address</th>
                 <th>GST No.</th>
@@ -18,6 +19,7 @@
         <tbody>
             @foreach($invoices as $invoice)
                 <tr>
+                    <td>{{ date('d-m-Y',strtotime($invoice->invoice_date)) }}</td>
                     <td>{{ $invoice->customer_name }}</td>
                     <td>{{ $invoice->customer_address }}</td>
                     <td>{{ $invoice->gst_no }}</td>

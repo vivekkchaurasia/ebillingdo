@@ -119,20 +119,11 @@
                         </li>
                         @endcan
                     
-                        @can('view-stock-report')
-                        <li class="nav-item mb-2 mt-2">
-                            <a class="nav-link {{ request()->routeIs('stock.report') ? 'active' : '' }}" aria-current="page" href="{{ route('stock.report') }}">
-                                <span data-feather="home"></span>
-                                Stock Report
-                            </a>
-                        </li>
-                        @endcan
-                    
                         @can('view-stock-purchases')
                         <li class="nav-item mb-2 mt-2">
                             <a class="nav-link {{ request()->routeIs('stock-purchases.index') ? 'active' : '' }}" href="{{ route('stock-purchases.index') }}">
-                                <span data-feather="shopping-cart"></span>
-                                Stock Purchases
+                                <span data-feather="briefcase"></span>
+                                Purchases
                             </a>
                         </li>
                         @endcan
@@ -140,8 +131,8 @@
                         @can('view-items')
                         <li class="nav-item mb-2 mt-2">
                             <a class="nav-link {{ request()->routeIs('items.index') ? 'active' : '' }}" href="{{ route('items.index') }}">
-                                <span data-feather="users"></span>
-                                Item
+                                <span data-feather="layers"></span>
+                                Items
                             </a>
                         </li>
                         @endcan
@@ -155,10 +146,19 @@
                         </li>
                         @endcan
                     
+                        @can('view-stock-report')
+                        <li class="nav-item mb-2 mt-2">
+                            <a class="nav-link {{ request()->routeIs('stock.report') ? 'active' : '' }}" aria-current="page" href="{{ route('stock.report') }}">
+                                <span data-feather="book-open"></span>
+                                Stock Report
+                            </a>
+                        </li>
+                        @endcan
+                    
                         @can('view-users')
                         <li class="nav-item mb-2 mt-2">
                             <a class="nav-link {{ request()->routeIs('users.index') ? 'active' : '' }}" href="{{ route('users.index') }}">
-                                <span data-feather="layers"></span>
+                                <span data-feather="users"></span>
                                 Users
                             </a>
                         </li>
