@@ -13,7 +13,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/images/favicon/apple-touch-icon.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/images/favicon/favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/favicon/favicon-16x16.png') }}">
@@ -119,11 +119,20 @@
                         </li>
                         @endcan
                     
+                        @can('view-stock-report')
+                        <li class="nav-item mb-2 mt-2">
+                            <a class="nav-link {{ request()->routeIs('stock.report') ? 'active' : '' }}" aria-current="page" href="{{ route('stock.report') }}">
+                                <span data-feather="home"></span>
+                                Stock Report
+                            </a>
+                        </li>
+                        @endcan
+                    
                         @can('view-stock-purchases')
                         <li class="nav-item mb-2 mt-2">
                             <a class="nav-link {{ request()->routeIs('stock-purchases.index') ? 'active' : '' }}" href="{{ route('stock-purchases.index') }}">
-                                <span data-feather="briefcase"></span>
-                                Purchases
+                                <span data-feather="shopping-cart"></span>
+                                Stock Purchases
                             </a>
                         </li>
                         @endcan
@@ -131,8 +140,8 @@
                         @can('view-items')
                         <li class="nav-item mb-2 mt-2">
                             <a class="nav-link {{ request()->routeIs('items.index') ? 'active' : '' }}" href="{{ route('items.index') }}">
-                                <span data-feather="layers"></span>
-                                Items
+                                <span data-feather="users"></span>
+                                Item
                             </a>
                         </li>
                         @endcan
@@ -146,19 +155,10 @@
                         </li>
                         @endcan
                     
-                        @can('view-stock-report')
-                        <li class="nav-item mb-2 mt-2">
-                            <a class="nav-link {{ request()->routeIs('stock.report') ? 'active' : '' }}" aria-current="page" href="{{ route('stock.report') }}">
-                                <span data-feather="book-open"></span>
-                                Stock Report
-                            </a>
-                        </li>
-                        @endcan
-                    
                         @can('view-users')
                         <li class="nav-item mb-2 mt-2">
                             <a class="nav-link {{ request()->routeIs('users.index') ? 'active' : '' }}" href="{{ route('users.index') }}">
-                                <span data-feather="users"></span>
+                                <span data-feather="layers"></span>
                                 Users
                             </a>
                         </li>
@@ -198,9 +198,9 @@
         </footer>
     </div>
     
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/feather-icons"></script>
     <script>
