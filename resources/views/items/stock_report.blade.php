@@ -46,8 +46,8 @@
         <label class="form-check-label" for="viewSwitch">Toggle Card/Table View</label>
     </div>
 
-    <div id="tableView" class="table-responsive">
-        <table class="table table-bordered">
+    <div id="tableView" class="table-responsive small">
+        <table class="table table-striped table-sm">
             <thead>
                 <tr>
                     <th>Category</th>
